@@ -1,0 +1,17 @@
+# このファイルを.envにリネームして使用してください
+
+# Google Sheets設定
+GOOGLE_SHEETS_ID=your_spreadsheet_id_here
+
+# Tesseract OCRパス
+TESSERACT_PATH=C:\Program Files\Tesseract-OCR\tesseract.exe
+
+# フォルダ設定
+INPUT_FOLDER=./input
+OUTPUT_FOLDER=./output
+PROCESSED_FOLDER=./processed
+
+# OCR設定（オプション）
+OCR_LANG=jpn+eng
+
+

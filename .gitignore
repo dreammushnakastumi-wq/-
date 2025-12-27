@@ -1,0 +1,27 @@
+# 環境変数
+.env
+credentials.json
+token.json
+
+# フォルダ
+input/
+output/
+processed/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
