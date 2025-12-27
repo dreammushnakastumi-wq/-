@@ -109,10 +109,68 @@ python test_ocr.py <ファイルパス>
 
 **注意**: Google Cloud Consoleの無料トライアルが終了している場合でも、Google Sheets APIは無料枠が十分大きいため、通常の使用では課金されることはほとんどありません。
 
+## 複数デバイス間での同期
+
+### コードの同期（GitHub使用）
+
+このプロジェクトはGitHubで管理されているため、デスクトップPCとノートパソコン間でコードを同期できます。
+
+#### ノートパソコンでのセットアップ
+
+1. **GitHubからプロジェクトをクローン**：
+   ```bash
+   git clone https://github.com/dreammushnakastumi-wq/-.git
+   cd -
+   ```
+
+2. **環境変数と認証情報を設定**：
+   - デスクトップPCから以下のファイルをコピー：
+     - `.env`（環境変数）
+     - `credentials.json`（Google API認証情報）
+   - または、同じ設定を手動で作成
+
+3. **Pythonパッケージをインストール**：
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Tesseract OCRをインストール**（ノートパソコンにも必要）
+
+#### コードの同期手順
+
+**デスクトップPCで変更をプッシュ**：
+```bash
+git add .
+git commit -m "変更内容の説明"
+git push
+```
+
+**ノートパソコンで変更を取得**：
+```bash
+git pull
+```
+
+### Cursorの設定・会話履歴の同期
+
+デスクトップPCとノートパソコン間でCursorの設定や会話履歴を同期するには：
+
+1. **デスクトップPCで設定同期を有効化**：
+   - `Ctrl + Shift + P` を押してコマンドパレットを開く
+   - 「Settings Sync: Turn On」と入力して選択
+   - 会話履歴（Chat History）の同期が有効になっているか確認
+
+2. **ノートパソコンで同じアカウントにサインイン**：
+   - ノートパソコンのCursorでも同じアカウントでサインイン
+   - 設定が自動的に同期されます
+
+3. **手動で同期する場合**：
+   - `Ctrl + Shift + P` → 「Settings Sync: Sync Now」で手動同期
+
 ## 注意事項
 
 - 初回実行時にブラウザでGoogle認証が必要です
 - OCRの精度は画像の品質に依存します
 - 注文書のフォーマットが統一されていると精度が向上します
 - 詳細なセットアップ手順は `setup_guide.md` を参照してください
+- **セキュリティ**: `.env`と`credentials.json`は機密情報のため、GitHubにコミットしないよう注意（`.gitignore`に含まれています）
 
