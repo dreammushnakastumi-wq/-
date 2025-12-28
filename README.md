@@ -152,19 +152,46 @@ git pull
 
 ### Cursorの設定・会話履歴の同期
 
-デスクトップPCとノートパソコン間でCursorの設定や会話履歴を同期するには：
+**重要**: Cursorでは現在、設定同期機能がサポートされていないため、手動で設定ファイルを移行する必要があります。
 
-1. **デスクトップPCで設定同期を有効化**：
-   - `Ctrl + Shift + P` を押してコマンドパレットを開く
-   - 「Settings Sync: Turn On」と入力して選択
-   - 会話履歴（Chat History）の同期が有効になっているか確認
+#### デスクトップPCでの設定ファイルのエクスポート
 
-2. **ノートパソコンで同じアカウントにサインイン**：
-   - ノートパソコンのCursorでも同じアカウントでサインイン
-   - 設定が自動的に同期されます
+1. **Cursorの設定フォルダを開く**：
+   - Windowsの場合：エクスプローラーで以下のパスを開く
+     ```
+     %AppData%\Cursor\User
+     ```
+   - または、`Win + R`を押して `%AppData%\Cursor\User` を入力してEnter
 
-3. **手動で同期する場合**：
-   - `Ctrl + Shift + P` → 「Settings Sync: Sync Now」で手動同期
+2. **移行するファイルをコピー**：
+   - `settings.json`（設定）
+   - `keybindings.json`（キーバインド、あれば）
+   - `snippets/`フォルダ（コードスニペット、あれば）
+   - 拡張機能の設定ファイルがあればそれも
+
+3. **クラウドストレージまたはUSBに保存**：
+   - Google Drive、OneDrive、Dropboxなどのクラウドストレージにコピー
+   - または、USBメモリに保存
+
+#### ノートパソコンでの設定ファイルのインポート
+
+1. **Cursorをインストール**（まだの場合）
+
+2. **同じアカウントでサインイン**：
+   - ノートパソコンのCursorでも同じCursorアカウントでサインイン
+   - これにより、年会費プランの場合、会話履歴が同期される可能性があります
+
+3. **設定フォルダを開く**：
+   - Windowsの場合：`%AppData%\Cursor\User`
+
+4. **デスクトップPCからコピーしたファイルを貼り付け**：
+   - 既存のファイルを上書きするか、バックアップしてから置き換え
+
+#### 会話履歴について
+
+- 年会費プランをご利用の場合、会話履歴はクラウドに自動保存されている可能性があります
+- ノートパソコンで同じアカウントにサインインすると、会話履歴が表示される場合があります
+- 会話履歴が表示されない場合は、Cursorの公式サポートにお問い合わせください
 
 ## 注意事項
 
@@ -173,4 +200,55 @@ git pull
 - 注文書のフォーマットが統一されていると精度が向上します
 - 詳細なセットアップ手順は `setup_guide.md` を参照してください
 - **セキュリティ**: `.env`と`credentials.json`は機密情報のため、GitHubにコミットしないよう注意（`.gitignore`に含まれています）
+
+---
+
+## 委託倉庫在庫監視システム
+
+このプロジェクトには、委託倉庫のWEBサイトから在庫情報を自動取得し、出荷が発生したときに通知を送信する機能も含まれています。
+
+### 機能
+
+- 定期的に委託倉庫のWEBサイトから在庫情報（数量、賞味期限）を取得
+- 在庫数の減少を検知して出荷を通知
+- 賞味期限が近い商品を自動で検知・通知
+- 在庫履歴をGoogle Sheetsに保存
+
+### 使い方
+
+詳細な使い方は `INVENTORY_MONITOR_README.md` を参照してください。
+
+**簡単な使い方**:
+
+```bash
+# 1回だけチェック
+python inventory_monitor_main.py --once
+
+# 定期的に監視（60分ごと）
+python inventory_monitor_main.py
+
+# Windowsの場合
+run_inventory_monitor.bat
+```
+
+### 設定
+
+`.env`ファイルに以下の設定を追加してください：
+
+```env
+# 委託倉庫の在庫一覧ページのURL
+WAREHOUSE_INVENTORY_URL=https://example.com/inventory
+
+# ログイン情報（必要な場合）
+WAREHOUSE_LOGIN_URL=https://example.com/login
+WAREHOUSE_USERNAME=your_username
+WAREHOUSE_PASSWORD=your_password
+
+# メール通知設定（オプション）
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+NOTIFICATION_EMAIL=notification@example.com
+```
 
