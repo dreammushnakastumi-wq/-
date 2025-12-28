@@ -14,4 +14,36 @@ PROCESSED_FOLDER=./processed
 # OCR設定（オプション）
 OCR_LANG=jpn+eng
 
+# 在庫監視設定
+# 委託倉庫の在庫一覧ページのURL（必須）
+WAREHOUSE_INVENTORY_URL=https://example.com/inventory
+
+# ログインページのURL（ログインが必要な場合）
+WAREHOUSE_LOGIN_URL=https://example.com/login
+
+# ログイン情報（環境変数から取得、または直接指定）
+WAREHOUSE_USERNAME=your_username
+WAREHOUSE_PASSWORD=your_password
+
+# スクレイピング設定
+# Seleniumを使用するか（true/false、デフォルト: true）
+USE_SELENIUM=true
+# ヘッドレスモードで実行するか（true/false、デフォルト: true）
+HEADLESS_MODE=true
+
+# ログイン要素のセレクター（JSON形式、オプション）
+# 例: {"username": "#user", "password": "#pass", "submit": "#login-btn"}
+WAREHOUSE_LOGIN_SELECTORS={"username": "#username", "password": "#password", "submit": "button[type='submit']"}
+
+# スクレイピング用セレクター（JSON形式、オプション）
+# 例: {"product": ".product-name", "quantity": ".quantity", "expiry": ".expiry-date"}
+WAREHOUSE_SCRAPE_SELECTORS={"product": ".product-name", "quantity": ".quantity", "expiry": ".expiry-date"}
+
+# メール通知設定（オプション）
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+NOTIFICATION_EMAIL=notification@example.com
+
 

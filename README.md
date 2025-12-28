@@ -201,3 +201,54 @@ git pull
 - 詳細なセットアップ手順は `setup_guide.md` を参照してください
 - **セキュリティ**: `.env`と`credentials.json`は機密情報のため、GitHubにコミットしないよう注意（`.gitignore`に含まれています）
 
+---
+
+## 委託倉庫在庫監視システム
+
+このプロジェクトには、委託倉庫のWEBサイトから在庫情報を自動取得し、出荷が発生したときに通知を送信する機能も含まれています。
+
+### 機能
+
+- 定期的に委託倉庫のWEBサイトから在庫情報（数量、賞味期限）を取得
+- 在庫数の減少を検知して出荷を通知
+- 賞味期限が近い商品を自動で検知・通知
+- 在庫履歴をGoogle Sheetsに保存
+
+### 使い方
+
+詳細な使い方は `INVENTORY_MONITOR_README.md` を参照してください。
+
+**簡単な使い方**:
+
+```bash
+# 1回だけチェック
+python inventory_monitor_main.py --once
+
+# 定期的に監視（60分ごと）
+python inventory_monitor_main.py
+
+# Windowsの場合
+run_inventory_monitor.bat
+```
+
+### 設定
+
+`.env`ファイルに以下の設定を追加してください：
+
+```env
+# 委託倉庫の在庫一覧ページのURL
+WAREHOUSE_INVENTORY_URL=https://example.com/inventory
+
+# ログイン情報（必要な場合）
+WAREHOUSE_LOGIN_URL=https://example.com/login
+WAREHOUSE_USERNAME=your_username
+WAREHOUSE_PASSWORD=your_password
+
+# メール通知設定（オプション）
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+NOTIFICATION_EMAIL=notification@example.com
+```
+
